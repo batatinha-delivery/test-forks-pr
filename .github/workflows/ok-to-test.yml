@@ -21,14 +21,17 @@ jobs:
       with:
         app_id: ${{ secrets.APP_ID }}
         private_key: ${{ secrets.PRIVATE_KEY }}
-
+    - name: Test
+      env:
+        TOKEN: ${{ steps.generate_token.outputs.token }}
+      run: echo "Unit tests... success! ;-) ${{ env.TOKEN }}"
     - name: Slash Command Dispatch
       uses: peter-evans/slash-command-dispatch@v1
       env:
         TOKEN: ${{ steps.generate_token.outputs.token }}
       with:
-        token: ${{ env.TOKEN }} # GitHub App installation access token
-        # token: ${{ secrets.PERSONAL_ACCESS_TOKEN }} # PAT or OAuth token will also work
+        # token: ${{ env.TOKEN }} # GitHub App installation access token
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }} # PAT or OAuth token will also work
         reaction-token: ${{ secrets.GITHUB_TOKEN }}
         issue-type: pull-request
         commands: ok-to-test
