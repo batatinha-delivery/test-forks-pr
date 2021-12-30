@@ -1,0 +1,18 @@
+image: alpine:latest
+
+stages:
+  - conclude
+
+conclude:
+  stage: conclude
+  image: registry.infra.ifood-prod.com.br/ifood/platform-engineering/oss/github-check-updater:latest 
+  variables: 
+    REPOSITORY: batatinha-delivery/test-forks-pr
+    SHA: ${CI_COMMIT_SHA}
+  before_script:
+    - echo "SHA -> ${SHA}"
+    - echo "GITHUB APP ID -> ${GITHUB_APP_ID}"
+    - echo "REPOSITORY -> ${REPOSITORY}"
+  script:
+    - cd /src
+    - node check_queued.js
