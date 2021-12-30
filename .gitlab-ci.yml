@@ -9,10 +9,6 @@ conclude:
   variables: 
     REPOSITORY: batatinha-delivery/test-forks-pr
     SHA: ${CI_COMMIT_SHA}
-  before_script:
-    - echo "SHA -> ${SHA}"
-    - echo "GITHUB APP ID -> ${GITHUB_APP_ID}"
-    - echo "REPOSITORY -> ${REPOSITORY}"
   script:
     - cd /src
-    - node check_queued.js
+    - node check_success.js
